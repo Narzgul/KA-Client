@@ -13,10 +13,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'KA Scraper',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSeed(
+          primary: const Color.fromARGB(255, 181, 233, 65),
+          seedColor: const Color.fromARGB(255, 181, 233, 65),
+        ),
         useMaterial3: true,
       ),
-      home: Overview(),
+      home: const Overview(),
     );
   }
 }
