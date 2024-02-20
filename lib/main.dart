@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ka_client/overview.dart';
+import 'package:ka_client/style_components/app_scaffold.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const Overview(),
+      home: const AppScaffold(title: "KA Scraper"),
     );
   }
 }
