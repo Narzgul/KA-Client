@@ -14,7 +14,7 @@ class AppScaffold extends StatefulWidget {
 
 class _AppScaffoldState extends State<AppScaffold> {
   final _pages = {
-    "Overview": const Overview(),
+    "Overview": Overview(),
     "Price Chart": PriceChartPage(),
   };
 

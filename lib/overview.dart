@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ka_client/product.dart';
+import 'package:ka_client/style_components/product_info_dialog.dart';
 
 import 'api_connection.dart';
 
-class Overview extends StatefulWidget {
-  const Overview({super.key});
+class Overview extends StatelessWidget {
+  final Future<List<Product>> products = GetIt.I<APIConnection>().products;
 
-  @override
-  State<Overview> createState() => _OverviewState();
-}
-
-class _OverviewState extends State<Overview> {
-  Future<List<Product>> products = GetIt.I<APIConnection>().products;
+  Overview({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +23,14 @@ class _OverviewState extends State<Overview> {
                 title: Text(products[index].title),
                 subtitle: Text(products[index].location),
                 trailing: Text(products[index].price.toString()),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return ProductInfoDialog(product: products[index]);
+                    },
+                  );
+                }
               );
             },
           );
