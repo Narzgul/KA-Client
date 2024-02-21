@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:ka_client/product.dart';
+import 'package:ka_client/style_components/price_chart.dart';
 
 import 'api_connection.dart';
 
-class Overview extends StatefulWidget {
-  const Overview({super.key});
+class PriceChartPage extends StatelessWidget {
+  final Future<List<Product>> products = GetIt.I<APIConnection>().products;
 
-  @override
-  State<Overview> createState() => _OverviewState();
-}
-
-class _OverviewState extends State<Overview> {
-  Future<List<Product>> products = GetIt.I<APIConnection>().products;
+  PriceChartPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +16,7 @@ class _OverviewState extends State<Overview> {
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.data != null) {
           List<Product> products = snapshot.data!; // Can't be null
-          return ListView.builder(
-            itemCount: products.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(products[index].title),
-                subtitle: Text(products[index].location),
-                trailing: Text(products[index].price.toString()),
-              );
-            },
-          );
+          return PriceChart(prices: products.map((e) => e.price).toList());
         } else if (snapshot.hasData && snapshot.data == null) {
           return const Center(child: Text('No data'));
         } else if (snapshot.hasError) {

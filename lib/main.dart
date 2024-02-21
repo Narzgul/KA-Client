@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:ka_client/api_connection.dart';
 import 'package:ka_client/style_components/app_scaffold.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key}) {
+    _initAPI();
+  }
+
+  void _initAPI() => GetIt.I.registerSingleton<APIConnection>(APIConnection());
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +25,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const AppScaffold(title: "KA Scraper"),
+      home: const AppScaffold(),
     );
   }
 }

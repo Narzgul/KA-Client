@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 class PriceChart extends StatelessWidget {
   final List<int> prices;
-  // add prices to constructor
   const PriceChart({super.key, required this.prices});
 
   @override

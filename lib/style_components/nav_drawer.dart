@@ -29,9 +29,13 @@ class NavDrawer extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
-          const ListTile(
-            title: Text('Price Graph'),
-            leading: Icon(Icons.show_chart),
+          ListTile(
+            title: const Text('Price Chart'),
+            leading: const Icon(Icons.show_chart),
+            onTap: () {
+              updateCurrentPage("Price Chart");
+              Navigator.pop(context);
+            },
           ),
         ],
       ),
