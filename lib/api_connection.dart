@@ -4,6 +4,7 @@ import 'package:ka_client/product.dart';
 import 'package:http/http.dart' as http;
 
 class APIConnection {
+  // Replace localhost with 10.0.2.2 for Android Emulator
   String url = 'http://127.0.0.1:8000/products';
   late Future<List<Product>> products;
 

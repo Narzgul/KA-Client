@@ -6,8 +6,8 @@ import '../product.dart';
 class ProductInfoDialog extends StatelessWidget {
   final Product product;
 
-  Future<void> _launchUrl(url) async {
-    if (!await launchUrl(url)) {
+  Future<void> _launchUrl(String url) async {
+    if (!await launchUrl(Uri.parse(url))) {
       throw Exception('Could not launch $url');
     }
   }
@@ -42,7 +42,8 @@ class ProductInfoDialog extends StatelessWidget {
           title: const Text('Open in browser'),
           onTap: () {
             // Open the product in the browser
-            _launchUrl(Uri.parse("https://www.kleinanzeigen.de/s-anzeige/${product.id.toString()}"));
+            _launchUrl(
+                "https://www.kleinanzeigen.de/s-anzeige/${product.id.toString()}");
           },
         )
       ],
