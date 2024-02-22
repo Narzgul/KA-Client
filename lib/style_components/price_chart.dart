@@ -8,6 +8,7 @@ class PriceChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LineChart(
+
       LineChartData(
         lineBarsData: [
           LineChartBarData(
@@ -16,6 +17,7 @@ class PriceChart extends StatelessWidget {
                 .entries
                 .map((e) => FlSpot(e.key.toDouble(), e.value.toDouble()))
                 .toList(),
+                isCurved:true,  //ist schön
           ),
         ],
         clipData: const FlClipData.all(),

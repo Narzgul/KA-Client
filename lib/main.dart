@@ -4,7 +4,7 @@ import 'package:ka_client/api_connection.dart';
 import 'package:ka_client/style_components/app_scaffold.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MyApp());    // start argument in additional run arg: -d chrome --web-browser-flag "--disable-web-security"
 }
 
 class MyApp extends StatelessWidget {
