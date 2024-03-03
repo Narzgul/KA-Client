@@ -28,5 +28,8 @@ class APIConnection {
     }
   }
 
-
+  Future<List<Product>> updateProducts() {
+    products = fetchProducts();
+    return products;
+  }
 }

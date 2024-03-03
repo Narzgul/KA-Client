@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:ka_client/price_chart_page.dart';
 import 'package:ka_client/style_components/nav_drawer.dart';
 
+import '../api_connection.dart';
 import '../overview.dart';
 
 class AppScaffold extends StatefulWidget {
-
   const AppScaffold({super.key});
 
   @override
@@ -25,6 +26,9 @@ class _AppScaffoldState extends State<AppScaffold> {
     _currentPage = _pages.keys.first;
   }
 
+  final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+      GlobalKey<ScaffoldMessengerState>();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -34,18 +38,38 @@ class _AppScaffoldState extends State<AppScaffold> {
       ),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
-      home: Scaffold(
-        drawer: NavDrawer(
-          updateCurrentPage: (String page) {
-            setState(() {
-              _currentPage = page;
-            });
-          },
+      home: ScaffoldMessenger(
+        key: scaffoldMessengerKey,
+        child: Scaffold(
+          drawer: NavDrawer(
+            updateCurrentPage: (String page) {
+              setState(() {
+                _currentPage = page;
+              });
+            },
+          ),
+          appBar: AppBar(
+            title: Text(_currentPage),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              // update products
+              GetIt.I.get<APIConnection>().updateProducts().then((value) {
+                return setState(
+                  () {
+                    scaffoldMessengerKey.currentState?.showSnackBar(
+                      const SnackBar(
+                        content: Text('Updated products'),
+                      ),
+                    );
+                  },
+                );
+              });
+            },
+            child: const Icon(Icons.refresh),
+          ),
+          body: _pages[_currentPage],
         ),
-        appBar: AppBar(
-          title: Text(_currentPage),
-        ),
-        body: _pages[_currentPage],
       ),
     );
   }

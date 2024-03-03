@@ -25,12 +25,12 @@ class ProductInfoDialog extends StatelessWidget {
         ListTile(
           leading: const Icon(Icons.attach_money),
           title: const Text('Price'),
-          subtitle: Text(product.price.toString()),
+          subtitle: Text(product.price.toString() + (product.vb ? ' VB' : '')),
         ),
         ListTile(
           leading: const Icon(Icons.location_on),
           title: const Text('Location'),
-          subtitle: Text(product.location + (product.vb ? ' VB' : '')),
+          subtitle: Text(product.location),
         ),
         ListTile(
           leading: const Icon(Icons.local_shipping),
