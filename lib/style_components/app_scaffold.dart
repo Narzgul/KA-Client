@@ -32,7 +32,7 @@ class _AppScaffoldState extends State<AppScaffold> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'HUntis',
+      title: 'KA-Scraper',
       theme: ThemeData(
         primarySwatch: Colors.orange,
       ),

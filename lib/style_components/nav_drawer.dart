@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class NavDrawer extends StatelessWidget {
   final Function(String page) updateCurrentPage;
-  const NavDrawer({super.key, required this.updateCurrentPage});
+  NavDrawer({super.key, required this.updateCurrentPage});
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,41 @@ class NavDrawer extends StatelessWidget {
               updateCurrentPage("Price Chart");
               Navigator.pop(context);
             },
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: Form(
+              key: _formKey,
+              onChanged: () {
+                if (_formKey.currentState!.validate()) {
+                  _formKey.currentState!.save();
+                }
+              },
+              child: Column(
+                children: [
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    decoration: const InputDecoration(
+                      labelText: 'min price',
+                      icon: Icon(Icons.search),
+                    ),
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    decoration: const InputDecoration(
+                      labelText: 'max price',
+                      icon: Icon(Icons.search),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),

@@ -18,6 +18,7 @@ class Overview extends StatelessWidget {
           List<Product> products = snapshot.data!; // Can't be null
           return ListView.builder(
             itemCount: products.length,
+            padding: const EdgeInsets.fromLTRB(8, 8, 8, 75),
             itemBuilder: (context, index) {
               return ListTile(
                 title: Text(products[index].title),
