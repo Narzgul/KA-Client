@@ -8,12 +8,13 @@ class APIConnection {
   String baseUrl = 'http://127.0.0.1:8000';
   late Future<List<String>> categories;
   List<Product> products = [];
+  String selectedCategory = '';
 
   APIConnection() {
-    categories = getCategories();
+    categories = fetchCategories();
   }
 
-  Future<List<String>> getCategories() async {
+  Future<List<String>> fetchCategories() async {
     final response = await http.get(Uri.parse('$baseUrl/products'));
 
     if (response.statusCode == 200) {
@@ -22,6 +23,7 @@ class APIConnection {
           in jsonDecode(utf8.decode(response.body.codeUnits))) {
         categories.add(category);
       }
+      selectedCategory = categories[0];
       return categories;
     } else {
       throw Exception('Failed to load categories');
@@ -29,8 +31,8 @@ class APIConnection {
   }
 
   Future<List<Product>> fetchProducts() async {
-    String category = (await categories)[0];
-    final response = await http.get(Uri.parse('$baseUrl/products/$category'));
+    await categories;
+    final response = await http.get(Uri.parse('$baseUrl/products/$selectedCategory'));
 
     if (response.statusCode == 200) {
       List<Product> products = []; // TODO: Write sleek oneliner

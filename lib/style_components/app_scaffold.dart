@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ka_client/price_chart_page.dart';
+import 'package:ka_client/style_components/category_selector.dart';
 import 'package:ka_client/style_components/nav_drawer.dart';
 
 import '../overview.dart';
@@ -48,6 +49,7 @@ class _AppScaffoldState extends State<AppScaffold> {
           ),
           appBar: AppBar(
             title: Text(_currentPage),
+            actions: const [CategorySelector()],
           ),
           /*floatingActionButton: FloatingActionButton(
             onPressed: () {
