@@ -6,7 +6,7 @@ import 'package:ka_client/style_components/product_info_dialog.dart';
 import 'api_connection.dart';
 
 class Overview extends StatelessWidget {
-  final Future<List<Product>> products = GetIt.I<APIConnection>().products;
+  final Future<List<Product>> products = GetIt.I<APIConnection>().fetchProducts();
 
   Overview({super.key});
 

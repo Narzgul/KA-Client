@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:ka_client/price_chart_page.dart';
 import 'package:ka_client/style_components/nav_drawer.dart';
 
-import '../api_connection.dart';
 import '../overview.dart';
 
 class AppScaffold extends StatefulWidget {
@@ -14,7 +12,7 @@ class AppScaffold extends StatefulWidget {
 }
 
 class _AppScaffoldState extends State<AppScaffold> {
-  final _pages = {
+  final Map<String, StatelessWidget> _pages = {
     "Overview": Overview(),
     "Price Chart": PriceChartPage(),
   };
@@ -51,23 +49,21 @@ class _AppScaffoldState extends State<AppScaffold> {
           appBar: AppBar(
             title: Text(_currentPage),
           ),
-          floatingActionButton: FloatingActionButton(
+          /*floatingActionButton: FloatingActionButton(
             onPressed: () {
               // update products
-              GetIt.I.get<APIConnection>().updateProducts().then((value) {
-                return setState(
-                  () {
-                    scaffoldMessengerKey.currentState?.showSnackBar(
-                      const SnackBar(
-                        content: Text('Updated products'),
-                      ),
-                    );
-                  },
-                );
+              setState(() {
+                GetIt.I.get<APIConnection>().updateProducts().then((value) {
+                  scaffoldMessengerKey.currentState?.showSnackBar(
+                    const SnackBar(
+                      content: Text('Updated products'),
+                    ),
+                  );
+                });
               });
             },
             child: const Icon(Icons.refresh),
-          ),
+          ),*/
           body: _pages[_currentPage],
         ),
       ),
