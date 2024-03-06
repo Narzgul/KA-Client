@@ -39,6 +39,7 @@ dependencies:
   fl_chart:
   get_it: ^7.6.7
   url_launcher: ^6.2.4
+  watch_it: ^1.4.0
 
 dev_dependencies:
   flutter_test:
