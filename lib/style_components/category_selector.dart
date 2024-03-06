@@ -24,6 +24,7 @@ class _CategorySelectorState extends State<CategorySelector> {
             onChanged: (String? newValue) {
               setState(() {
                 connection.selectedCategory = newValue!;
+                connection.updateProducts();
               });
             },
             items: categories.map<DropdownMenuItem<String>>((String value) {
