@@ -1,11 +1,13 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:ka_client/product.dart';
 import 'package:http/http.dart' as http;
 
 class APIConnection {
   // Replace localhost with 10.0.2.2 for Android Emulator
-  String baseUrl = 'http://127.0.0.1:8000';
+  String baseUrl =
+      Platform.isAndroid ? 'http://10.0.2.2:8000' : 'http://127.0.0.1:8000';
   late Future<List<String>> categories;
   List<Product> products = [];
   String selectedCategory = '';
