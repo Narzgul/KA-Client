@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:ka_client/product.dart';
 import 'package:ka_client/style_components/product_info_dialog.dart';
 import 'package:watch_it/watch_it.dart';
@@ -7,15 +6,12 @@ import 'package:watch_it/watch_it.dart';
 import 'api_connection.dart';
 
 class Overview extends WatchingWidget {
-  final Future<List<Product>> products =
-      GetIt.I<APIConnection>().fetchProducts();
-
-  Overview({super.key});
+  const Overview({super.key});
 
   @override
   Widget build(BuildContext context) {
     List<Product> products = watchFuture<APIConnection, List<Product>>(
-      (p0) => p0.fetchProducts(),
+      (p0) => p0.getProducts(),
       initialValue: [],
     ).data!;
     if (products.isEmpty) {

@@ -32,7 +32,8 @@ class APIConnection {
 
   Future<List<Product>> fetchProducts() async {
     await categories;
-    final response = await http.get(Uri.parse('$baseUrl/products/$selectedCategory'));
+    final response =
+        await http.get(Uri.parse('$baseUrl/products/$selectedCategory'));
 
     if (response.statusCode == 200) {
       List<Product> products = []; // TODO: Write sleek oneliner
@@ -47,8 +48,14 @@ class APIConnection {
     }
   }
 
-  /*Future<List<Product>> updateProducts() {
-    products = fetchProducts();
+  Future<List<Product>> getProducts() async {
+    if (products.isEmpty) {
+      products = await fetchProducts();
+    }
     return products;
-  }*/
+  }
+
+  Future<void> updateProducts() async {
+    products = await fetchProducts();
+  }
 }
