@@ -1,16 +1,18 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:ka_client/product.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class APIConnection {
   // Replace localhost with 10.0.2.2 for Android Emulator
   String baseUrl =
-      Platform.isAndroid ? 'http://10.0.2.2:8000' : 'http://127.0.0.1:8000';
+  'http://127.0.0.1:8000';
   late Future<List<String>> categories;
   List<Product> products = [];
   String selectedCategory = '';
+  int minPrice = 0;
+  int maxPrice = 1000000;
 
   APIConnection() {
     categories = fetchCategories();
@@ -44,6 +46,12 @@ class APIConnection {
         // Convert to codeUnits to fix Umlauts
         products.add(Product.fromJson(productString));
       }
+
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      minPrice = prefs.getInt('minPrice') ?? 0;
+      maxPrice = prefs.getInt('maxPrice') ?? 1000000;
+      products = products.where((element) => element.price >= minPrice && element.price <= maxPrice).toList();
+
       return products;
     } else {
       throw Exception('Failed to load product');

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class NavDrawer extends StatelessWidget {
   final Function(String page) updateCurrentPage;
@@ -48,29 +50,44 @@ class NavDrawer extends StatelessWidget {
                   _formKey.currentState!.save();
                 }
               },
-              child: Column(
-                children: [
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
+              child: FutureBuilder(
+                future: SharedPreferences.getInstance(),
+                builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  if(snapshot.connectionState == ConnectionState.waiting) {
+                    return const CircularProgressIndicator();
+                  }
+                  SharedPreferences prefs = snapshot.data;
+                  return Column(
+                    children: [
+                      TextFormField(
+                        keyboardType: TextInputType.number,
+                        initialValue: () {
+                          return prefs.getInt('minPrice') == null ? '' : prefs.getInt('minPrice').toString();
+                        }(),
+                        onChanged: (value) {
+                          prefs.setInt('minPrice', int.parse(value));
+                        },
+                        decoration: const InputDecoration(
+                          labelText: 'min price',
+                          icon: Icon(Icons.search),
+                        ),
+                      ),
+                      TextFormField(
+                        keyboardType: TextInputType.number,
+                        initialValue: () {
+                          return prefs.getInt('maxPrice') == null ? '' : prefs.getInt('maxPrice').toString();
+                        }(),
+                        onChanged: (value) {
+                          prefs.setInt('maxPrice', int.parse(value));
+                        },
+                        decoration: const InputDecoration(
+                          labelText: 'max price',
+                          icon: Icon(Icons.search),
+                        ),
+                      ),
                     ],
-                    decoration: const InputDecoration(
-                      labelText: 'min price',
-                      icon: Icon(Icons.search),
-                    ),
-                  ),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                    decoration: const InputDecoration(
-                      labelText: 'max price',
-                      icon: Icon(Icons.search),
-                    ),
-                  ),
-                ],
+                  );
+                },
               ),
             ),
           ),
