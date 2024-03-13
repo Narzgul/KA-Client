@@ -15,27 +15,45 @@ class _ProductSearchState extends State<ProductSearch> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Text('Name'),
-        TextFormField(
-          onChanged: (value) {
-            _name = value;
-          },
-        ),
-        const Text('Link'),
-        TextFormField(
-          onChanged: (value) {
-            _link = value;
-          },
-        ),
-        ElevatedButton(
-          onPressed: () {
-            GetIt.I.get<APIConnection>().sendNewProduct(_name!, _link!);
-          },
-          child: const Text('Add Product'),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text('Name'),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              onChanged: (value) {
+                _name = value;
+              },
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text('Link'),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              onChanged: (value) {
+                _link = value;
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () {
+                GetIt.I.get<APIConnection>().sendNewProduct(_name!, _link!);
+              },
+              child: const Text('Add Product'),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
