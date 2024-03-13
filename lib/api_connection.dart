@@ -6,8 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class APIConnection {
   // Replace localhost with 10.0.2.2 for Android Emulator
-  String baseUrl =
-  'http://127.0.0.1:8000';
+  String baseUrl = 'http://127.0.0.1:8000';
   late Future<List<String>> categories;
   List<Product> products = [];
   String selectedCategory = '';
@@ -50,7 +49,10 @@ class APIConnection {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       minPrice = prefs.getInt('minPrice') ?? 0;
       maxPrice = prefs.getInt('maxPrice') ?? 1000000;
-      products = products.where((element) => element.price >= minPrice && element.price <= maxPrice).toList();
+      products = products
+          .where((element) =>
+              element.price >= minPrice && element.price <= maxPrice)
+          .toList();
 
       return products;
     } else {
@@ -67,5 +69,24 @@ class APIConnection {
 
   Future<void> updateProducts() async {
     products = await fetchProducts();
+  }
+
+  Future<void> sendNewProduct(String name, String link) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/new_product'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(
+        <String, String>{
+          'name': name,
+          'link': link,
+        },
+      ),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to create product');
+    }
   }
 }

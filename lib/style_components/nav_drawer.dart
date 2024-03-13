@@ -41,6 +41,15 @@ class NavDrawer extends StatelessWidget {
               Navigator.pop(context);
             },
           ),
+          ListTile(
+            title: const Text('Product Search'),
+            leading: const Icon(Icons.search),
+            onTap: () {
+              updateCurrentPage("Product Search");
+              Navigator.pop(context);
+            },
+          ),
+          const Divider(),
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
             child: Form(

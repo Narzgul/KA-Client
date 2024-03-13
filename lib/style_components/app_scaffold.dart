@@ -6,6 +6,7 @@ import 'package:ka_client/style_components/nav_drawer.dart';
 
 import '../api_connection.dart';
 import '../overview.dart';
+import '../product_search.dart';
 
 class AppScaffold extends StatefulWidget {
   const AppScaffold({super.key});
@@ -15,9 +16,10 @@ class AppScaffold extends StatefulWidget {
 }
 
 class _AppScaffoldState extends State<AppScaffold> {
-  final Map<String, StatelessWidget> _pages = {
+  final Map<String, Widget> _pages = {
     "Overview": const Overview(),
     "Price Chart": const PriceChartPage(),
+    "Product Search": const ProductSearch(),
   };
 
   String _currentPage = "";
