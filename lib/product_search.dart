@@ -89,6 +89,23 @@ class _ProductSearchState extends State<ProductSearch> {
               child: const Text('Add Product'),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+              onPressed: () {
+                GetIt.I.get<APIConnection>().removeCurrentProduct().then(
+                  (value) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Removed current product'),
+                      ),
+                    );
+                  },
+                );
+              },
+              child: const Text('Remove current Product'),
+            ),
+          )
         ],
       ),
     );

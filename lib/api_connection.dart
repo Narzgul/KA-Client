@@ -91,16 +91,18 @@ class APIConnection {
   }
 
   // Remove product from database
-  Future<void> removeProduct(String name) async {
+  Future<void> removeCurrentProduct() async {
     final response = await http.delete(
-      Uri.parse('$baseUrl/products/$name'),
+      Uri.parse('$baseUrl/products/$selectedCategory'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-
     if (response.statusCode != 200) {
       throw Exception('Failed to remove product');
     }
+
+    categories = fetchCategories();
+    await categories;
   }
 }
