@@ -47,7 +47,44 @@ class _ProductSearchState extends State<ProductSearch> {
             padding: const EdgeInsets.all(8.0),
             child: ElevatedButton(
               onPressed: () {
-                GetIt.I.get<APIConnection>().sendNewProduct(_name!, _link!);
+                if (_name == null ||
+                    _link == null ||
+                    _name!.isEmpty ||
+                    _link!.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please fill out all fields'),
+                    ),
+                  );
+                  return;
+                }
+                if (_name!.contains(' ')) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Name cannot contain spaces'),
+                    ),
+                  );
+                  return;
+                }
+                if (!Uri.parse(_link!).isAbsolute) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Please enter a valid URL'),
+                    ),
+                  );
+                  return;
+                }
+
+                GetIt.I
+                    .get<APIConnection>()
+                    .sendNewProduct(_name!, _link!)
+                    .then((value) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Added product'),
+                    ),
+                  );
+                });
               },
               child: const Text('Add Product'),
             ),

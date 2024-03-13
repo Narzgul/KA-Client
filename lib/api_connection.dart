@@ -89,4 +89,18 @@ class APIConnection {
       throw Exception('Failed to create product');
     }
   }
+
+  // Remove product from database
+  Future<void> removeProduct(String name) async {
+    final response = await http.delete(
+      Uri.parse('$baseUrl/products/$name'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to remove product');
+    }
+  }
 }
